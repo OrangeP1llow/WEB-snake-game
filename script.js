@@ -12,6 +12,7 @@ let direction = 'right';
 let gameInterval;
 let gameSpeedDelay = 200;
 let gameStarted = false;
+let isPaused = false;
 
 function draw() {
   board.innerHTML = '';
@@ -54,6 +55,7 @@ function generateFood() {
 }
 
 function move() {
+  if (isPaused) return;
   const head = { ...snake[0] };
   switch (direction) {
     case 'right':
@@ -184,12 +186,6 @@ function updateScore() {
   score.textContent = currentScore.toString().padStart(3, '0');
 }
 
-/*setInterval(() => {
-  move();
-  draw();
-}, 200);
-*/
-
 function stopGame() {
   clearInterval(gameInterval);
   gameStarted = false;
@@ -206,7 +202,21 @@ function updateHighScore() {
   highScoreText.style.display = 'block';
 }
 
+function togglePause() {
+  isPaused = !isPaused;
+  document.getElementById("pause-btn").innerText = isPaused ? "▶️ Resume" : "⏸️ Pause";
+}
 
-document.getElementById("developer-btn").addEventListener("click", function () {
+
+
+document.getElementById("about-btn").addEventListener("click", function () {
   alert("🐍 Snake Game v1.0.1 by StanisLove\n\n👨‍💻 Developer: StanisLove\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
+});
+
+document.getElementById("pause-btn").addEventListener("click", togglePause);
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    togglePause();
+  }
 });
