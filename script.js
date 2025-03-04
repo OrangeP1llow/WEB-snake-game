@@ -220,3 +220,7 @@ document.addEventListener("keydown", function (event) {
     togglePause();
   }
 });
+
+document.getElementById("controls-btn").addEventListener("click", function () {
+  alert("👆 Up - Arrow Up || [W]\n👇 Down - Arrow Down || [S]\n👈 Left - Arrow Left || [A]\n👉 Right - Arrow Right [D]\n⏸️ Pause - Escape");
+});

@@ -121,3 +121,20 @@ body,
 #pause-btn:hover {
   background: #abb78a;
 }
+
+#controls-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: #595f43;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#controls-btn:hover {
+  background: #abb78a;
+}
