@@ -208,5 +208,5 @@ function updateHighScore() {
 
 
 document.getElementById("developer-btn").addEventListener("click", function () {
-  alert("н@ мнє Гоярд Б3г, ю кент тач май св3г\nGitHub: github.com/yourprofile");
+  alert("🐍 Snake Game v1.0.1 by StanisLove\n\n👨‍💻 Developer: StanisLove\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
 });
