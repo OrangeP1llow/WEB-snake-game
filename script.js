@@ -208,19 +208,19 @@ const spaceEvent = new KeyboardEvent("keydown", {
 
 
 
-document.getElementById("reset-btn").addEventListener("click", function () {
+document.getElementById("restart-btn").addEventListener("click", function () {
   resetGame();
   document.dispatchEvent(spaceEvent);
 });
 document.addEventListener("keydown", function (event) {
-  if (event.key === "r" || event.key === "R") {
+  if (event.key === "Enter") {
     resetGame();
     document.dispatchEvent(spaceEvent);
   }
 });
 
 document.getElementById("about-btn").addEventListener("click", function () {
-  alert("🐍 Snake Game v1.0.5\n\n👨‍💻 Developer: StanisLove\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
+  alert("🐍 Snake Game v1.0.0\n\n👨‍💻 Made for: WebProg Task\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
 });
 
 document.getElementById("pause-btn").addEventListener("click", togglePause);
@@ -232,5 +232,5 @@ document.addEventListener("keydown", function (event) {
 });
 
 document.getElementById("controls-btn").addEventListener("click", function () {
-  alert("👆 Up - Arrow Up || [W]\n👇 Down - Arrow Down || [S]\n👈 Left - Arrow Left || [A]\n👉 Right - Arrow Right [D]\n⏸️ Pause - Escape");
+  alert("👆 Up - Arrow Up || [W]\n👇 Down - Arrow Down || [S]\n👈 Left - Arrow Left || [A]\n👉 Right - Arrow Right [D]\n⏸️ Pause - Escape\n🔄 Restart - Enter");
 });
