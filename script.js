@@ -103,44 +103,23 @@ function startGame() {
 }
 
 function handleKeyPress(event) {
-  if ((!gameStarted && event.code === 'Space') || (!gameStarted && event.code === ' ')) {
+  if (!gameStarted && (event.code === 'Space' || event.code === ' ')) {
     startGame();
-  } else {
-    switch (event.key) {
-      case 'ArrowUp':
-        direction = 'up';
-        break;
+    return;
+  }
 
-      case 'ArrowDown':
-        direction = 'down';
-        break;
+  const keyMapping = {
+    ArrowUp: 'up', w: 'up', W: 'up',
+    ArrowDown: 'down', s: 'down', S: 'down',
+    ArrowLeft: 'left', a: 'left', A: 'left',
+    ArrowRight: 'right', d: 'right', D: 'right'
+  };
 
-      case 'ArrowLeft':
-        direction = 'left';
-        break;
-
-      case 'ArrowRight':
-        direction = 'right';
-        break;
-
-      case 'w':
-        direction = 'up';
-        break;
-
-      case 's':
-        direction = 'down';
-        break;
-
-      case 'a':
-        direction = 'left';
-        break;
-
-      case 'd':
-        direction = 'right';
-        break;
-    }
+  if (keyMapping[event.key]) {
+    direction = keyMapping[event.key];
   }
 }
+
 
 document.addEventListener('keydown', handleKeyPress);
 
@@ -161,24 +140,31 @@ function checkCollision() {
   const head = snake[0];
 
   if (head.x < 1 || head.x > gridSize || head.y < 1 || head.y > gridSize) {
-    resetGame();
+    //resetGame();
+    updateHighScore();
+    updateScore();
+    stopGame();
   }
 
   for (let i = 1; i < snake.length; i++) {
     if (head.x === snake[i].x && head.y === snake[i].y) {
-      resetGame();
+      //resetGame();
+      updateHighScore();
+      updateScore();
+      stopGame();
     }
   }
 }
 
 function resetGame() {
-  updateHighScore();
-  stopGame();
+  //updateHighScore();
+  //stopGame();
+  document.getElementById("game-over-screen").style.display = "none";
   snake = [{ x: 10, y: 10 }];
   food = generateFood();
   direction = 'right';
   gameSpeedDelay = 200;
-  updateScore();
+  //updateScore();
 }
 
 function updateScore() {
@@ -189,8 +175,12 @@ function updateScore() {
 function stopGame() {
   clearInterval(gameInterval);
   gameStarted = false;
-  instructionText.style.display = 'block';
-  logo.style.display = 'block';
+
+  //instructionText.style.display = 'block';
+  //logo.style.display = 'block';
+  
+  document.getElementById("final-score").textContent = snake.length - 1;
+  document.getElementById("game-over-screen").style.display = "block";
 }
 
 function updateHighScore() {
@@ -203,20 +193,40 @@ function updateHighScore() {
 }
 
 function togglePause() {
+  if (!gameStarted) return;
   isPaused = !isPaused;
   document.getElementById("pause-btn").innerText = isPaused ? "▶️ Resume" : "⏸️ Pause";
 }
 
+const spaceEvent = new KeyboardEvent("keydown", {
+  key: " ",
+  code: "Space",
+  keyCode: 32,
+  which: 32,
+  bubbles: true
+});
 
+
+
+document.getElementById("reset-btn").addEventListener("click", function () {
+  resetGame();
+  document.dispatchEvent(spaceEvent);
+});
+document.addEventListener("keydown", function (event) {
+  if (event.key === "r" || event.key === "R") {
+    resetGame();
+    document.dispatchEvent(spaceEvent);
+  }
+});
 
 document.getElementById("about-btn").addEventListener("click", function () {
-  alert("🐍 Snake Game v1.0.1 by StanisLove\n\n👨‍💻 Developer: StanisLove\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
+  alert("🐍 Snake Game v1.0.5\n\n👨‍💻 Developer: StanisLove\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
 });
 
 document.getElementById("pause-btn").addEventListener("click", togglePause);
 
 document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
+  if (event.key === "Escape" && gameStarted) {
     togglePause();
   }
 });

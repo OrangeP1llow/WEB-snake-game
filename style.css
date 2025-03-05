@@ -18,6 +18,7 @@ body,
   grid-template-columns: repeat(20, 20px);
   grid-template-rows: repeat(20, 20px);
   margin: 5px;
+  position: relative;
 }
 
 .game-border-1 {
@@ -136,5 +137,38 @@ body,
 }
 
 #controls-btn:hover {
+  background: #abb78a;
+}
+
+#game-over-screen {
+  display: none;
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.98);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  
+  width: 400px;
+  height: 400px;
+}
+
+#reset-btn {
+  background: #595f43;
+  color: white;
+  padding: 20px 40px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#reset-btn:hover {
   background: #abb78a;
 }
