@@ -7,12 +7,14 @@ const highScoreText = document.getElementById('highScore');
 
 let snake = [{ x: 10, y: 10 }];
 let food = generateFood();
-let highScore = 0;
 let direction = 'right';
 let gameInterval;
 let gameSpeedDelay = 200;
 let gameStarted = false;
 let isPaused = false;
+let highScore = localStorage.getItem("highScore") || 0;
+highScoreText.textContent = highScore.toString().padStart(3, '0');
+highScoreText.style.display = 'block';
 
 function draw() {
   board.innerHTML = '';
@@ -175,10 +177,11 @@ function updateScore() {
 function stopGame() {
   clearInterval(gameInterval);
   gameStarted = false;
+  updateHighScore(); // Оновлення рекорду
 
   //instructionText.style.display = 'block';
   //logo.style.display = 'block';
-  
+
   document.getElementById("final-score").textContent = snake.length - 1;
   document.getElementById("game-over-screen").style.display = "block";
 }
@@ -187,6 +190,7 @@ function updateHighScore() {
   const currentScore = snake.length - 1;
   if (currentScore > highScore) {
     highScore = currentScore;
+    localStorage.setItem("highScore", highScore);
     highScoreText.textContent = highScore.toString().padStart(3, '0')
   }
   highScoreText.style.display = 'block';
