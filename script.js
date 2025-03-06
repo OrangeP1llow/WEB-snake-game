@@ -202,6 +202,12 @@ function togglePause() {
   document.getElementById("pause-btn").innerText = isPaused ? "▶️ Resume" : "⏸️ Pause";
 }
 
+function resetHighScore() {
+  localStorage.removeItem("highScore");
+  highScore = 0;
+  highScoreText.textContent = highScore.toString().padStart(3, '0');
+}
+
 const spaceEvent = new KeyboardEvent("keydown", {
   key: " ",
   code: "Space",
@@ -238,3 +244,5 @@ document.addEventListener("keydown", function (event) {
 document.getElementById("controls-btn").addEventListener("click", function () {
   alert("👆 Up - Arrow Up || [W]\n👇 Down - Arrow Down || [S]\n👈 Left - Arrow Left || [A]\n👉 Right - Arrow Right [D]\n⏸️ Pause - Escape\n🔄 Restart - Enter");
 });
+
+document.getElementById("resetHighScore-btn").addEventListener("click", resetHighScore);

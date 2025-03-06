@@ -172,3 +172,20 @@ body,
 #restart-btn:hover {
   background: #abb78a;
 }
+
+#resetHighScore-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #595f43;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#resetHighScore-btn:hover {
+  background: #abb78a;
+}
