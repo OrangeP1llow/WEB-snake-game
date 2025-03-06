@@ -222,7 +222,7 @@ function resetHighScore() {
 
 function updateMuteState() {
   const volume = isMuted ? 0 : 0.5;
-  
+
   eatSound.volume = volume;
   gameOverSound.volume = volume;
   clickSound.volume = volume;
@@ -287,7 +287,17 @@ document.getElementById("controls-btn").addEventListener("click", function () {
 
 document.getElementById("resetHighScore-btn").addEventListener("click", function () {
   clickSound.play();
-  resetHighScore();
+
+  if (!highScore || highScore === "0") {
+    alert("ℹ️ There is no HighScore to reset.");
+    return;
+  }
+
+  const message = "⚠️ You really want to reset your HighScore?";
+
+  if (confirm(message)) {
+    resetHighScore();
+  }
 });
 
 document.getElementById("mute-btn").addEventListener("click", function () {
