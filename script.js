@@ -4,6 +4,17 @@ const instructionText = document.getElementById('instruction-text');
 const logo = document.getElementById('logo');
 const score = document.getElementById('score');
 const highScoreText = document.getElementById('highScore');
+const eatSound = new Audio('sounds/eat.mp3'); 
+const gameOverSound = new Audio('sounds/game-over.mp3');
+const clickSound = new Audio('sounds/click.mp3');
+const restartSound = new Audio('sounds/restart.mp3');
+const errorSound = new Audio('sounds/error.mp3');
+
+errorSound.volume = 0.25;
+eatSound.volume = 0.5;  
+restartSound.volume = 0.5;
+clickSound.volume = 0.5;  
+gameOverSound.volume = 0.5;  
 
 let snake = [{ x: 10, y: 10 }];
 let food = generateFood();
@@ -80,6 +91,7 @@ function move() {
   snake.unshift(head);
 
   if (head.x == food.x && head.y == food.y) {
+    eatSound.play();
     food = generateFood();
     increaseSpeed();
     clearInterval(gameInterval);
@@ -178,7 +190,7 @@ function stopGame() {
   clearInterval(gameInterval);
   gameStarted = false;
   updateHighScore(); // Оновлення рекорду
-
+  gameOverSound.play();
   //instructionText.style.display = 'block';
   //logo.style.display = 'block';
 
@@ -221,28 +233,43 @@ const spaceEvent = new KeyboardEvent("keydown", {
 document.getElementById("restart-btn").addEventListener("click", function () {
   resetGame();
   document.dispatchEvent(spaceEvent);
+  restartSound.play();
 });
 document.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     resetGame();
     document.dispatchEvent(spaceEvent);
+    restartSound.play();
   }
 });
 
 document.getElementById("about-btn").addEventListener("click", function () {
+  clickSound.play();
   alert("🐍 Snake Game v1.0.0\n\n👨‍💻 Made for: WebProg Task\n📟 Made with guide from: freeCodeCamp.org\n🔗 GitHub: github.com/OrangeP1llow\n📧 Contacts: https://t.me/orangep1llow\n\nThaks for playing this game! ❤️");
 });
 
-document.getElementById("pause-btn").addEventListener("click", togglePause);
+document.getElementById("pause-btn").addEventListener("click", function(){
+  if (!gameStarted) {
+    errorSound.play();
+    return;
+  }
+  clickSound.play();
+  togglePause();
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key === "Escape" && gameStarted) {
+    clickSound.play();
     togglePause();
   }
 });
 
 document.getElementById("controls-btn").addEventListener("click", function () {
+  clickSound.play();
   alert("👆 Up - Arrow Up || [W]\n👇 Down - Arrow Down || [S]\n👈 Left - Arrow Left || [A]\n👉 Right - Arrow Right [D]\n⏸️ Pause - Escape\n🔄 Restart - Enter");
 });
 
-document.getElementById("resetHighScore-btn").addEventListener("click", resetHighScore);
+document.getElementById("resetHighScore-btn").addEventListener("click", function(){
+  clickSound.play(); 
+  resetHighScore();
+  });
